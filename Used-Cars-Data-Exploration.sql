@@ -1,9 +1,7 @@
-/* Just looking what i can find in this dataset with information about used cars*/
 
--- At first i want to change the numbers in selling_price to an european standard currency
-ALTER TABLE usedcars ADD COLUMN formatted_price VARCHAR(50);
+-- At first i want to change the numbers in selling_price to a standard format
 UPDATE usedcars
-SET formatted_price = FORMAT(selling_price / 100, 2, 'de_DE');
+SET selling_price = selling_price / 100;
 
 -- Let´s check the outcome
 SELECT *
@@ -11,12 +9,14 @@ FROM usedcars;
 
 -- What are the most affordable cars ?
 
-Select min(formatted_price)
+Select min(selling_price)
 from usedcars;
+
+-- We don´t have any information about the currency. The most affordable car is priced at 200
 
 SELECT *
 FROM usedcars
-WHERE formatted_price = '1.000,00' ;
+WHERE selling_price = '200' ;
 
 -- What is the average of the selling prices ?
 
@@ -76,13 +76,12 @@ FROM usedcars
 Where year = 1996;
 -- There are only 2 cars available
 
--- What is the average km driven in each year?
 
-SELECT year, AVG(km_driven)
+-- What are the top 3 cars considering value for least amount of money
+
+SELECT *
 FROM usedcars
-GROUP BY year
-ORDER BY AVG(km_driven);
+WHERE selling_price < 5000 AND owner LIKE "First Owner" 
+ORDER BY km_driven, year DESC limit 3;
 
-
-
-
+/* 1. Tata 2. Maruti 3. Datsun */
