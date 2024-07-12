@@ -1,3 +1,4 @@
+/* Exploratory Data Analysis of a small data set of used cars */
 
 -- At first i want to change the numbers in selling_price to a standard format
 UPDATE usedcars
